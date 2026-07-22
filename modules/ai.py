@@ -116,17 +116,17 @@ class AIAnalyzer:
         ]
 
 
-    # =====================================================
-    # AI CHÍNH
-    # =====================================================
+# =====================================================
+# AI CHÍNH
+# =====================================================
 
-        def analyze(self, lop):
+    def analyze(self, lop):
 
-            students = self.get_students(lop)
+        students = self.get_students(lop)
 
-            academic = self.get_academic(lop)
+        academic = self.get_academic(lop)
 
-            return {
+        return {
 
             "classes": self.get_classes(),
 
@@ -144,11 +144,20 @@ class AIAnalyzer:
 
             "ranking": self.rank_students(students, academic),
 
-            "attention": self.detect_students_need_attention(students, academic),
+            "attention": self.detect_students_need_attention(
+                students,
+                academic
+            ),
 
-            "summary": self.generate_summary(students, academic),
+            "summary": self.generate_summary(
+                students,
+                academic
+            ),
 
-            "recommendations": self.generate_recommendations(students, academic)
+            "recommendations": self.generate_recommendations(
+                students,
+                academic
+            )
 
         }
 
