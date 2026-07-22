@@ -1158,3 +1158,190 @@ body{
     font-weight:600;
 
 }
+/* =====================================================
+   RESPONSIVE - MOBILE
+===================================================== */
+
+@media (max-width: 992px){
+
+    /* Sidebar */
+
+    .sidebar{
+        width:70px !important;
+        overflow:hidden;
+    }
+
+    .sidebar .menu-text,
+    .sidebar .logo-text{
+        display:none !important;
+    }
+
+    /* Nội dung */
+
+    .content,
+    .main-content,
+    .page-content{
+        margin-left:70px !important;
+        width:calc(100% - 70px) !important;
+        padding:18px !important;
+    }
+
+    /* Header */
+
+    .topbar,
+    .header{
+        padding:15px 20px;
+    }
+
+    /* Dashboard */
+
+    .dashboard-grid,
+    .stats-grid,
+    .card-grid{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+        gap:18px;
+
+    }
+
+    .card{
+
+        min-width:0;
+
+        width:100%;
+
+        border-radius:18px;
+
+        padding:18px;
+
+    }
+
+}
+
+/* =============================== */
+
+@media (max-width:768px){
+
+    body{
+
+        overflow-x:hidden;
+
+    }
+
+    .content,
+    .main-content,
+    .page-content{
+
+        margin-left:0 !important;
+
+        width:100% !important;
+
+        padding:14px !important;
+
+    }
+
+    .sidebar{
+
+        position:fixed;
+
+        left:-260px;
+
+        top:0;
+
+        width:260px !important;
+
+        height:100%;
+
+        z-index:9999;
+
+        transition:.35s;
+
+    }
+
+    .sidebar.show{
+
+        left:0;
+
+    }
+
+    .dashboard-grid,
+    .stats-grid,
+    .card-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        padding:16px;
+
+    }
+
+    h1{
+
+        font-size:24px;
+
+    }
+
+    h2{
+
+        font-size:20px;
+
+    }
+
+    h3{
+
+        font-size:18px;
+
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}
+
+/* =============================== */
+
+@media (max-width:480px){
+
+    .card{
+
+        border-radius:15px;
+
+        padding:15px;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    input,
+    select,
+    textarea{
+
+        font-size:16px;
+
+    }
+
+    .chart-container{
+
+        height:260px !important;
+
+    }
+
+}
