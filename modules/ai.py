@@ -120,13 +120,13 @@ class AIAnalyzer:
     # AI CHÍNH
     # =====================================================
 
-    def analyze(self, lop):
+        def analyze(self, lop):
 
-        students = self.get_students(lop)
+            students = self.get_students(lop)
 
-        academic = self.get_academic(lop)
+            academic = self.get_academic(lop)
 
-        return {
+            return {
 
             "classes": self.get_classes(),
 
