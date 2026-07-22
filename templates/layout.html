@@ -29,6 +29,9 @@
 </head>
 
 <body>
+<button class="mobile-menu-btn" id="mobileMenuBtn">
+    <i class="bi bi-list"></i>
+</button>
 
 <div class="wrapper">
 
@@ -258,7 +261,30 @@
 {% if active_page == 'upload' %}
 <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
 {% endif %}
+<script>
 
+const btn=document.getElementById("mobileMenuBtn");
+const sidebar=document.querySelector(".sidebar");
+
+btn.onclick=function(){
+
+    sidebar.classList.toggle("show");
+
+};
+
+document.addEventListener("click",function(e){
+
+    if(window.innerWidth>768)return;
+
+    if(!sidebar.contains(e.target)&&!btn.contains(e.target)){
+
+        sidebar.classList.remove("show");
+
+    }
+
+});
+
+</script>
 </body>
 
 </html>
