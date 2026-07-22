@@ -1,0 +1,248 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-geo-alt-fill text-danger"></i>
+
+            Bản đồ học sinh
+
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+            Quản lý vị trí nơi ở học sinh.
+
+        </p>
+
+    </div>
+
+    <button class="btn btn-primary">
+
+        <i class="bi bi-arrow-clockwise"></i>
+
+        Làm mới
+
+    </button>
+
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h3>105</h3>
+
+                <small class="text-secondary">Tổng học sinh</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h3>98</h3>
+
+                <small class="text-secondary">Đã có vị trí</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h3>7</h3>
+
+                <small class="text-secondary">Chưa cập nhật</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h3>AI</h3>
+
+                <small class="text-secondary">Định tuyến</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            <i class="bi bi-map-fill text-primary"></i>
+
+            Google Maps
+
+        </h5>
+
+    </div>
+
+    <div class="card-body p-0">
+
+        <div id="map"
+             style="height:600px;display:flex;align-items:center;justify-content:center;background:#eef2ff;">
+
+            <div class="text-center">
+
+                <i class="bi bi-geo-alt-fill display-3 text-primary"></i>
+
+                <h4 class="mt-3">
+
+                    Google Maps sẽ hiển thị tại đây
+
+                </h4>
+
+                <p class="text-secondary">
+
+                    Bước sau sẽ kết nối Google Maps API.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Danh sách học sinh theo vị trí
+
+        </h5>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead>
+
+                <tr>
+
+                    <th>Học sinh</th>
+
+                    <th>Lớp</th>
+
+                    <th>Địa chỉ</th>
+
+                    <th>Trạng thái</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Nguyễn Văn An</td>
+
+                    <td>9A1</td>
+
+                    <td>Phường Sông Cầu</td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            Đã định vị
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Trần Thị Bình</td>
+
+                    <td>9A1</td>
+
+                    <td>Phường Sông Cầu</td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            Đã định vị
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Lê Minh Đức</td>
+
+                    <td>9A2</td>
+
+                    <td>Chưa cập nhật</td>
+
+                    <td>
+
+                        <span class="badge bg-warning text-dark">
+
+                            Thiếu vị trí
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

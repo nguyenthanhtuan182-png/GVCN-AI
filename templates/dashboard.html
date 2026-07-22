@@ -1,0 +1,759 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================================== -->
+    <!-- HERO -->
+    <!-- ===================================================== -->
+
+    <div class="card border-0 shadow-lg overflow-hidden mb-5">
+
+        <div class="card-body p-0">
+
+            <div class="row g-0 align-items-center">
+
+                <!-- LEFT -->
+
+                <div class="col-lg-7">
+
+                    <div class="p-5">
+
+                        <span class="badge bg-primary px-3 py-2 mb-4">
+
+                            ỨNG DỤNG TRÍ TUỆ NHÂN TẠO TRONG GIÁO DỤC
+
+                        </span>
+
+                        <h1 class="display-4 fw-bold text-primary mb-3">
+
+                            GVCN AI
+
+                        </h1>
+
+                        <h3 class="fw-semibold text-dark mb-4">
+
+                            Hệ thống hỗ trợ Giáo viên chủ nhiệm bằng trí tuệ nhân tạo
+
+                        </h3>
+
+                        <p class="text-secondary fs-5 lh-lg">
+
+                            GVCN AI là hệ thống hỗ trợ giáo viên chủ nhiệm
+                            trong công tác quản lý học sinh thông qua việc
+                            phân tích dữ liệu học tập, đánh giá mức độ rủi ro,
+                            cảnh báo sớm, dự báo xu hướng và đề xuất các giải
+                            pháp giáo dục phù hợp bằng công nghệ
+                            <strong>Trí tuệ nhân tạo (Artificial Intelligence - AI)</strong>.
+
+                        </p>
+
+                        <div class="row mt-4">
+
+                            <div class="col-md-6 mb-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+
+                                    <span>
+
+                                        Đánh giá rủi ro học sinh
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+
+                                    <span>
+
+                                        Cảnh báo sớm
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+
+                                    <span>
+
+                                        Phân tích tổng quan lớp
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <div class="d-flex align-items-center">
+
+                                    <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+
+                                    <span>
+
+                                        Hỗ trợ ra quyết định
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- RIGHT -->
+
+                <div class="col-lg-5">
+
+                    <div
+
+                        class="d-flex justify-content-center align-items-center"
+
+                        style="
+                            min-height:480px;
+                            background:linear-gradient(135deg,#EDF5FF,#FFFFFF);
+                        "
+
+                    >
+
+                        <img
+
+                            src="{{ url_for('static', filename='images/ai.png') }}"
+
+                            class="img-fluid"
+
+                            style="
+                                width:360px;
+                                filter:drop-shadow(0 20px 40px rgba(0,0,0,.18));
+                            "
+
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ===================================================== -->
+    <!-- GIÁ TRỊ NỔI BẬT -->
+    <!-- ===================================================== -->
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold text-primary">
+
+            Giá trị nổi bật của GVCN AI
+
+        </h2>
+
+        <p class="text-muted fs-5">
+
+            Ứng dụng trí tuệ nhân tạo hỗ trợ giáo viên chủ nhiệm trong quản lý,
+            phân tích và ra quyết định.
+
+        </p>
+
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="feature-icon bg-primary-subtle text-primary">
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold mt-4">
+
+                        Trí tuệ nhân tạo
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        AI tự động phân tích dữ liệu học sinh và đưa ra đánh giá
+                        khách quan dựa trên nhiều tiêu chí.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="feature-icon bg-success-subtle text-success">
+
+                        <i class="bi bi-bar-chart-line-fill"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold mt-4">
+
+                        Phân tích dữ liệu
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Tổng hợp kết quả học tập, rèn luyện và trực quan hóa dữ
+                        liệu giúp giáo viên dễ theo dõi.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="feature-icon bg-warning-subtle text-warning">
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold mt-4">
+
+                        Cảnh báo sớm
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Phát hiện sớm học sinh có nguy cơ giảm sút kết quả học
+                        tập hoặc cần được quan tâm.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <div class="feature-icon bg-danger-subtle text-danger">
+
+                        <i class="bi bi-lightbulb-fill"></i>
+
+                    </div>
+
+                    <h5 class="fw-bold mt-4">
+
+                        Hỗ trợ quyết định
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Đề xuất giải pháp giáo dục phù hợp cho từng học sinh và
+                        từng tập thể lớp.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <style>
+
+    .feature-icon{
+
+        width:82px;
+
+        height:82px;
+
+        margin:auto;
+
+        border-radius:50%;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        font-size:34px;
+
+    }
+
+    .card{
+
+        transition:.25s;
+
+    }
+
+    .card:hover{
+
+        transform:translateY(-6px);
+
+    }
+
+    </style>
+    <!-- ===================================================== -->
+    <!-- QUY TRÌNH HOẠT ĐỘNG CỦA AI -->
+    <!-- ===================================================== -->
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold text-primary">
+
+            Quy trình hoạt động của GVCN AI
+
+        </h2>
+
+        <p class="text-muted fs-5">
+
+            Dữ liệu được xử lý hoàn toàn tự động để hỗ trợ giáo viên chủ nhiệm
+            ra quyết định nhanh chóng và chính xác.
+
+        </p>
+
+    </div>
+
+    <div class="card border-0 shadow-sm mb-5">
+
+        <div class="card-body py-5">
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+
+                    <div class="timeline-icon bg-primary">
+
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h5 class="fw-bold">
+
+                            01. Nhập dữ liệu
+
+                        </h5>
+
+                        <p class="text-muted mb-0">
+
+                            Nhập danh sách học sinh, kết quả học tập và các dữ liệu cần thiết.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-icon bg-success">
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h5 class="fw-bold">
+
+                            02. AI phân tích
+
+                        </h5>
+
+                        <p class="text-muted mb-0">
+
+                            AI tổng hợp, phân tích và đánh giá dữ liệu đa chiều.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-icon bg-warning">
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h5 class="fw-bold">
+
+                            03. Cảnh báo sớm
+
+                        </h5>
+
+                        <p class="text-muted mb-0">
+
+                            Phát hiện học sinh có nguy cơ học lực hoặc rèn luyện giảm sút.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+
+                    <div class="timeline-icon bg-danger">
+
+                        <i class="bi bi-lightbulb-fill"></i>
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h5 class="fw-bold">
+
+                            04. Hỗ trợ quyết định
+
+                        </h5>
+
+                        <p class="text-muted mb-0">
+
+                            Đề xuất giải pháp giáo dục phù hợp cho giáo viên chủ nhiệm.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <style>
+
+    .timeline{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        flex-wrap:wrap;
+
+    }
+
+    .timeline-item{
+
+        width:22%;
+
+        text-align:center;
+
+    }
+
+    .timeline-icon{
+
+        width:80px;
+
+        height:80px;
+
+        margin:auto;
+
+        border-radius:50%;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        color:#fff;
+
+        font-size:34px;
+
+        box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    }
+
+    .timeline-content{
+
+        margin-top:20px;
+
+    }
+
+    .timeline-line{
+
+        width:3%;
+
+        height:4px;
+
+        background:#dbe7ff;
+
+        margin-bottom:80px;
+
+        border-radius:10px;
+
+    }
+
+    @media(max-width:991px){
+
+        .timeline{
+
+            flex-direction:column;
+
+        }
+
+        .timeline-item{
+
+            width:100%;
+
+            margin-bottom:35px;
+
+        }
+
+        .timeline-line{
+
+            width:4px;
+
+            height:40px;
+
+            margin:0;
+
+        }
+
+    }
+
+    </style>
+    <!-- ===================================================== -->
+    <!-- THÔNG TIN HỆ THỐNG -->
+    <!-- ===================================================== -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-5">
+
+            <div class="text-center mb-5">
+
+                <h2 class="fw-bold text-primary">
+
+                    Thông tin hệ thống
+
+                </h2>
+
+                <p class="text-muted fs-5">
+
+                    Nền tảng ứng dụng trí tuệ nhân tạo hỗ trợ giáo viên chủ nhiệm.
+
+                </p>
+
+            </div>
+
+            <div class="row text-center">
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="p-4 rounded bg-light h-100">
+
+                        <i class="bi bi-award-fill text-primary fs-1"></i>
+
+                        <h6 class="text-muted mt-3">
+
+                            Phiên bản
+
+                        </h6>
+
+                        <h4 class="fw-bold">
+
+                            GVCN AI 1.0
+
+                        </h4>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="p-4 rounded bg-light h-100">
+
+                        <i class="bi bi-calendar3 text-success fs-1"></i>
+
+                        <h6 class="text-muted mt-3">
+
+                            Năm học
+
+                        </h6>
+
+                        <h4 class="fw-bold">
+
+                            2026 - 2027
+
+                        </h4>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="p-4 rounded bg-light h-100">
+
+                        <i class="bi bi-database-check text-warning fs-1"></i>
+
+                        <h6 class="text-muted mt-3">
+
+                            Dữ liệu
+
+                        </h6>
+
+                        <h4 class="fw-bold text-success">
+
+                            Đã đồng bộ
+
+                        </h4>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <div class="p-4 rounded bg-light h-100">
+
+                        <i class="bi bi-cpu-fill text-primary fs-1"></i>
+
+                        <h6 class="text-muted mt-3">
+
+                            AI Engine
+
+                        </h6>
+
+                        <h4 class="fw-bold text-primary">
+
+                            Ready
+
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr class="my-5">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <h4 class="fw-bold text-primary">
+
+                        GVCN AI
+
+                    </h4>
+
+                    <p class="text-muted mb-0">
+
+                        Hệ thống hỗ trợ ra quyết định cho giáo viên chủ nhiệm bằng
+                        trí tuệ nhân tạo. Phần mềm hỗ trợ phân tích dữ liệu học sinh,
+                        cảnh báo sớm nguy cơ, đánh giá mức độ rủi ro, dự báo xu hướng
+                        và đề xuất giải pháp giáo dục thông minh, góp phần nâng cao
+                        hiệu quả công tác chủ nhiệm trong trường học.
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <div class="text-muted">
+
+                        © 2026
+
+                    </div>
+
+                    <div class="fw-bold text-primary">
+
+                        GVCN AI
+
+                    </div>
+
+                    <div class="text-muted">
+
+                        Nguyễn Thanh Tuấn - Sông Cầu
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

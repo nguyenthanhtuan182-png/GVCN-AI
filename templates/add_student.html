@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    <i class="bi bi-person-plus-fill text-primary"></i>
+    Thêm học sinh
+</h2>
+
+<form method="POST">
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Họ và tên</label>
+
+            <input
+                type="text"
+                name="ho_ten"
+                class="form-control"
+                required>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Lớp</label>
+
+            <input
+                type="text"
+                name="lop"
+                class="form-control"
+                required>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Giới tính</label>
+
+            <select
+                name="gioi_tinh"
+                class="form-select">
+
+                <option>Nam</option>
+                <option>Nữ</option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Ngày sinh</label>
+
+            <input
+                type="date"
+                name="ngay_sinh"
+                class="form-control">
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Học lực</label>
+
+            <select
+                name="hoc_luc"
+                class="form-select">
+
+                <option>Tốt</option>
+                <option>Khá</option>
+                <option>Đạt</option>
+                <option>Chưa Đạt</option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label class="form-label">Hạnh kiểm</label>
+
+            <select
+                name="hanh_kiem"
+                class="form-select">
+
+                <option>Tốt</option>
+                <option>Khá</option>
+                <option>Đạt</option>
+                <option>Chưa Đạt</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <button class="btn btn-success">
+
+        <i class="bi bi-save-fill"></i>
+
+        Lưu học sinh
+
+    </button>
+
+    <a href="/students" class="btn btn-secondary">
+
+        Quay lại
+
+    </a>
+
+</form>
+
+{% endblock %}

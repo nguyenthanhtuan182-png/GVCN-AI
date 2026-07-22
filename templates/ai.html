@@ -1,0 +1,520 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-cpu-fill text-primary"></i>
+
+            AI phân tích
+
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+            AI hỗ trợ giáo viên chủ nhiệm phân tích dữ liệu học sinh và đưa ra khuyến nghị.
+
+        </p>
+
+    </div>
+
+    <div>
+
+        <button class="btn btn-primary">
+
+            <i class="bi bi-play-fill"></i>
+
+            Phân tích ngay
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Thống kê -->
+
+<div class="row mb-4">
+
+    <div class="col-lg-3">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Đã phân tích
+
+                </h6>
+
+                <h2>
+
+                    105
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-blue">
+
+                <i class="bi bi-people-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Nguy cơ cao
+
+                </h6>
+
+                <h2>
+
+                    8
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-red">
+
+                <i class="bi bi-exclamation-triangle-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Cần hỗ trợ
+
+                </h6>
+
+                <h2>
+
+                    12
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-orange">
+
+                <i class="bi bi-heart-pulse-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    AI Score
+
+                </h6>
+
+                <h2>
+
+                    91%
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-green">
+
+                <i class="bi bi-cpu-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Kết quả phân tích AI
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Học sinh</th>
+
+                    <th>AI Risk</th>
+
+                    <th>Nhận định</th>
+
+                    <th>Khuyến nghị</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                                <tr>
+
+                    <td>
+
+                        Nguyễn Văn An
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-danger">
+
+                            85%
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Có dấu hiệu giảm kết quả học tập.
+
+                    </td>
+
+                    <td>
+
+                        Liên hệ phụ huynh, theo dõi trong 2 tuần.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Trần Thị Bình
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-warning text-dark">
+
+                            58%
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Chuyên cần giảm.
+
+                    </td>
+
+                    <td>
+
+                        Trao đổi trực tiếp với học sinh.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Lê Minh Đức
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            15%
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Học tập ổn định.
+
+                    </td>
+
+                    <td>
+
+                        Tiếp tục duy trì.
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Phạm Gia Huy
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-danger">
+
+                            92%
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Nguy cơ bỏ học.
+
+                    </td>
+
+                    <td>
+
+                        Phối hợp gia đình và Ban giám hiệu.
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<div class="row mt-4">
+
+    <div class="col-lg-6">
+
+        <div class="card">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Kết luận của AI
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-success">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    AI đã hoàn thành việc phân tích dữ liệu học sinh.
+
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+
+                        ✔ 08 học sinh có nguy cơ cao.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ 12 học sinh cần được quan tâm.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ 85 học sinh có kết quả ổn định.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ Độ tin cậy mô hình: <strong>91%</strong>.
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Khuyến nghị của AI
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-warning">
+
+                    <i class="bi bi-lightbulb-fill"></i>
+
+                    AI đề xuất giáo viên ưu tiên làm việc với các học sinh có AI Risk trên 70%.
+
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+
+                        Liên hệ phụ huynh học sinh nguy cơ cao.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        Tăng cường theo dõi chuyên cần.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        Tổ chức phụ đạo cho học sinh yếu.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        Theo dõi lại sau mỗi tuần.
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="row mt-4">
+
+    <div class="col-lg-12">
+
+        <div class="card ai-card">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-stars text-warning"></i>
+
+                    Gợi ý hành động ưu tiên
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-info">
+
+                    AI khuyến nghị giáo viên chủ nhiệm thực hiện các công việc theo mức độ ưu tiên sau.
+
+                </div>
+
+                <ol class="mb-0">
+
+                    <li>
+
+                        Làm việc với học sinh có AI Risk trên <strong>70%</strong>.
+
+                    </li>
+
+                    <li>
+
+                        Liên hệ phụ huynh các học sinh có dấu hiệu giảm kết quả học tập.
+
+                    </li>
+
+                    <li>
+
+                        Theo dõi chuyên cần hằng ngày.
+
+                    </li>
+
+                    <li>
+
+                        Đánh giá lại sau mỗi tuần để AI cập nhật mức độ rủi ro.
+
+                    </li>
+
+                    <li>
+
+                        Lưu báo cáo để phục vụ công tác chủ nhiệm.
+
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

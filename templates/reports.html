@@ -1,0 +1,239 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-bar-chart-fill text-primary"></i>
+
+            Báo cáo
+
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+            Tổng hợp thống kê và báo cáo dành cho giáo viên chủ nhiệm.
+
+        </p>
+
+    </div>
+
+    <button class="btn btn-success">
+
+        <i class="bi bi-file-earmark-excel-fill"></i>
+
+        Xuất Excel
+
+    </button>
+
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-lg-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h2>105</h2>
+
+                <p class="text-secondary mb-0">
+
+                    Tổng học sinh
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h2>98%</h2>
+
+                <p class="text-secondary mb-0">
+
+                    Chuyên cần
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h2>82%</h2>
+
+                <p class="text-secondary mb-0">
+
+                    Học lực Khá - Giỏi
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card">
+
+            <div class="card-body text-center">
+
+                <h2>8</h2>
+
+                <p class="text-secondary mb-0">
+
+                    AI cảnh báo
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Báo cáo tổng hợp
+
+        </h5>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nội dung</th>
+
+                    <th>Kết quả</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Tổng số lớp</td>
+
+                    <td>3</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Tổng số học sinh</td>
+
+                    <td>105</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Học sinh Giỏi</td>
+
+                    <td>32</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Học sinh Khá</td>
+
+                    <td>54</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Học sinh Trung bình</td>
+
+                    <td>17</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Học sinh Yếu</td>
+
+                    <td>2</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>AI Risk cao</td>
+
+                    <td>8</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Kết luận AI
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="alert alert-info">
+
+            <i class="bi bi-stars"></i>
+
+            AI đánh giá tình hình lớp học nhìn chung ổn định. Có <strong>08 học sinh</strong> cần được giáo viên chủ nhiệm theo dõi thường xuyên và phối hợp với phụ huynh để nâng cao kết quả học tập.
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

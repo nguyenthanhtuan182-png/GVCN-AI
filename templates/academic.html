@@ -1,0 +1,289 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                <i class="bi bi-journal-check text-primary"></i>
+
+                Kết quả học tập
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Quản lý kết quả học tập của học sinh
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-primary text-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-table"></i>
+
+                    Danh sách kết quả học tập
+
+                </h5>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive" style="overflow-x:auto;">
+
+                <table class="table table-bordered table-hover table-sm align-middle text-nowrap">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>STT</th>
+
+                            <th>Mã định danh</th>
+
+                            <th>Họ tên</th>
+
+                            <th>Lớp</th>
+
+                            <th>Toán</th>
+
+                            <th>Ngữ văn</th>
+
+                            <th>Ngoại ngữ</th>
+
+                            <th>GDCD</th>
+
+                            <th>Công nghệ</th>
+
+                            <th>Tin học</th>
+
+                            <th>KHTN</th>
+
+                            <th>LS & ĐL</th>
+
+                            <th>GDTC</th>
+
+                            <th>Nghệ thuật</th>
+
+                            <th>HĐTN</th>
+
+                            <th>GDĐP</th>
+
+                            <th>KQHT</th>
+
+                            <th>KQRL</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+{% for row in academic %}
+
+<tr>
+
+    <td>{{ loop.index }}</td>
+
+    <td>{{ row.ma_dinh_danh }}</td>
+
+    <td class="text-start fw-semibold">
+
+        {{ row.ho_ten }}
+
+    </td>
+
+    <td>{{ row.lop }}</td>
+
+    <td>{{ row["Toán"] }}</td>
+
+    <td>{{ row["Ngữ văn"] }}</td>
+
+    <td>{{ row["Ngoại ngữ"] }}</td>
+
+    <td>{{ row["GDCD"] }}</td>
+
+    <td>{{ row["Công nghệ"] }}</td>
+
+    <td>{{ row["Tin học"] }}</td>
+
+    <td>{{ row["Khoa học Tự nhiên"] }}</td>
+
+    <td>{{ row["Lịch sử và Địa lý"] }}</td>
+
+    <td>{{ row["Giáo dục thể chất"] }}</td>
+
+    <td>{{ row["Nghệ thuật"] }}</td>
+
+    <td>{{ row["HĐTN"] }}</td>
+
+    <td>{{ row["GDĐP"] }}</td>
+
+    <td>
+
+        <span class="badge bg-success">
+
+            {{ row.ket_qua_hoc_tap }}
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <span class="badge bg-primary">
+
+            {{ row.ket_qua_ren_luyen }}
+
+        </span>
+
+    </td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+    <td colspan="18" class="text-center text-muted py-5">
+
+        Chưa có dữ liệu kết quả học tập.
+
+    </td>
+
+</tr>
+
+{% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-info-circle"></i>
+
+                Thống kê
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+
+                    <h6 class="text-muted">
+
+                        Tổng số học sinh
+
+                    </h6>
+
+                    <h3 class="text-primary">
+
+                        {{ academic|length }}
+
+                    </h3>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6 class="text-muted">
+
+                        Số môn học
+
+                    </h6>
+
+                    <h3 class="text-success">
+
+                        12
+
+                    </h3>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6 class="text-muted">
+
+                        Trạng thái
+
+                    </h6>
+
+                    <h3 class="text-success">
+
+                        Hoạt động
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header bg-info text-white">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-lightbulb"></i>
+
+                Hướng dẫn
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <ol class="mb-0">
+
+                <li>Nhập danh sách học sinh trước.</li>
+
+                <li>Tiếp theo nhập kết quả học tập từ CSDL ngành.</li>
+
+                <li>Mỗi học sinh được hiển thị trên một dòng.</li>
+
+                <li>Hệ thống tự tổng hợp 12 môn học.</li>
+
+                <li>Kết quả học tập và kết quả rèn luyện hiển thị ở hai cột cuối.</li>
+
+            </ol>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

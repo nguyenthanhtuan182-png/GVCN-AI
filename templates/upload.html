@@ -1,0 +1,558 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div>
+
+    <h2 class="fw-bold">
+
+        <i class="bi bi-file-earmark-excel-fill text-success"></i>
+
+        Nhập dữ liệu
+
+    </h2>
+
+    <p class="text-secondary mb-0">
+
+        Hệ thống hỗ trợ nhập dữ liệu học sinh và kết quả học tập từ CSDL ngành.
+
+    </p>
+
+</div>
+
+<div class="row mt-4">
+
+    <!-- NHẬP DỮ LIỆU -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-upload"></i>
+
+                    Nhập dữ liệu
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <form
+                    method="POST"
+                    action="/upload"
+                    enctype="multipart/form-data">
+
+                    
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+
+                            Tệp mẫu
+
+                        </label>
+
+                        <div>
+
+                            <a
+                                href="/download-template/gvcn"
+                                class="btn btn-outline-primary">
+
+                                <i class="bi bi-download"></i>
+
+                                Tải mẫu GVCN AI
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="border rounded bg-light text-center p-5">
+
+                        <i
+                            class="bi bi-file-earmark-excel-fill text-success"
+                            style="font-size:72px;">
+
+                        </i>
+
+                        <h4 class="mt-3">
+
+                            Chọn tệp Excel
+
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Hỗ trợ dữ liệu học sinh và kết quả học tập từ CSDL ngành.
+
+                        </p>
+
+                        <input
+                            id="excel_file"
+                            type="file"
+                            name="file"
+                            class="form-control mt-3"
+                            accept=".xlsx,.xls"
+                            required>
+
+                        <div class="mt-3">
+
+                            <strong>Tệp đã chọn:</strong>
+
+                            <span id="fileName">
+
+                                Chưa có
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-4">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg">
+
+                            <i class="bi bi-upload"></i>
+
+                            Nhập dữ liệu
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- THÔNG BÁO -->
+
+    <div class="col-lg-4">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-success text-white">
+
+                    <strong>
+
+                        Thông báo nhập liệu
+
+                    </strong>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p class="mb-0">
+
+                        {{ message }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+
+                <strong>
+
+                    Thông báo nhập liệu
+
+                </strong>
+
+            </div>
+
+            <div class="card-body">
+
+                <p class="text-muted mb-0">
+
+                    Chưa có dữ liệu được nhập.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+</div>
+
+<!-- THỐNG KÊ -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Tổng dòng
+
+                </h6>
+
+                <h2 class="text-primary">
+
+                    {{ stats.total|default(0) }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Đã nhập
+
+                </h6>
+
+                <h2 class="text-success">
+
+                    {{ stats.imported|default(0) }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Trùng lặp
+
+                </h6>
+
+                <h2 class="text-warning">
+
+                    {{ stats.duplicate|default(0) }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm text-center">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+
+                    Không hợp lệ
+
+                </h6>
+
+                <h2 class="text-danger">
+
+                    {{ stats.invalid|default(0) }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- LỊCH SỬ NHẬP -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-12">
+
+        <div class="card">
+
+            <div class="card-header bg-white">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+
+                Lịch sử nhập dữ liệu
+
+            </h5>
+
+                <form
+                method="POST"
+                action="/upload/history/clear"
+                onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ lịch sử nhập liệu?');">
+
+        <button
+                type="submit"
+                class="btn btn-sm btn-outline-danger">
+
+                <i class="bi bi-trash"></i>
+
+            Xóa lịch sử
+
+        </button>
+
+    </form>
+
+</div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>STT</th>
+
+                            <th>Tên tệp</th>
+
+                            <th>Ngày nhập</th>
+
+                            <th>Số bản ghi</th>
+
+                            <th>Người nhập</th>
+
+                            <th>Trạng thái</th>
+
+                        </tr>
+
+                    </thead>
+
+                   <tbody>
+
+{% if history %}
+
+    {% for item in history %}
+
+    <tr>
+
+        <td>{{ loop.index }}</td>
+
+        <td>{{ item.loai_du_lieu }}</td>
+
+        <td>{{ item.thoi_gian }}</td>
+
+        <td>{{ item.so_ban_ghi }}</td>
+
+        <td>{{ item.nguoi_nhap }}</td>
+
+        <td>
+
+            <span class="badge bg-success">
+
+                {{ item.trang_thai }}
+
+            </span>
+
+                            </td>
+
+                            </tr>
+
+                                    {% endfor %}
+
+                                    {% else %}
+
+                            <tr>
+
+                                <td colspan="6" class="text-center text-muted py-4">
+
+                                     Chưa có lịch sử nhập liệu.
+
+                                 </td>
+
+                            </tr>
+
+                            {% endif %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- AI -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-success text-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-robot"></i>
+
+                    AI Phân tích
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <p class="mb-0 text-muted">
+
+                    AI sẽ phân tích học lực, hạnh kiểm, chuyên cần và phát hiện học sinh có nguy cơ cần hỗ trợ.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-info text-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    Dashboard thông minh
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <p class="mb-0 text-muted">
+
+                    Dữ liệu sau khi nhập sẽ được tổng hợp thành biểu đồ và báo cáo hỗ trợ giáo viên chủ nhiệm.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- HƯỚNG DẪN -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-12">
+
+        <div class="card">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Hướng dẫn sử dụng
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <ol class="mb-0">
+
+                    <li>Chọn tệp Excel từ CSDL ngành hoặc mẫu GVCN AI.</li>
+
+                    <li>Hệ thống tự nhận dạng loại dữ liệu.</li>
+
+                    <li>Nhấn nút Nhập dữ liệu.</li>
+
+                    <li>Hệ thống tự kiểm tra cấu trúc tệp.</li>
+
+                    <li>Dữ liệu hợp lệ sẽ được lưu vào cơ sở dữ liệu.</li>
+
+                    <li>Kết quả hiển thị ở phần thống kê phía trên.</li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("excel_file").addEventListener(
+    "change",
+    function () {
+
+        const file = this.files[0];
+
+        document.getElementById("fileName").innerHTML =
+            file ? file.name : "Chưa có";
+
+    }
+);
+
+</script>
+
+{% endblock %}

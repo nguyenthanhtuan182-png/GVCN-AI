@@ -1,0 +1,618 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Tiêu đề -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-mortarboard-fill text-primary"></i>
+
+            Quản lý lớp học
+
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+            Danh sách lớp học do giáo viên chủ nhiệm quản lý.
+
+        </p>
+
+    </div>
+
+    <div>
+
+        <button
+    class="btn btn-primary"
+    id="btnAddClass">
+
+    <i class="bi bi-plus-circle-fill"></i>
+
+    Thêm lớp học
+
+</button>
+
+    </div>
+
+</div>
+
+<!-- Thống kê -->
+
+<div class="row mb-4">
+
+    <div class="col-lg-4">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Tổng số lớp
+
+                </h6>
+
+                <h2>
+
+                    {{ total_classes }}
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-blue">
+
+                <i class="bi bi-mortarboard-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Tổng học sinh
+
+                </h6>
+
+                <h2>
+
+                    {{ total_students }}
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-green">
+
+                <i class="bi bi-people-fill"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card stat-card">
+
+            <div>
+
+                <h6 class="text-secondary">
+
+                    Tỷ lệ chuyên cần
+
+                </h6>
+
+                <h2>
+
+                     {{ attendance_rate }}%
+
+                </h2>
+
+            </div>
+
+            <div class="icon icon-orange">
+
+                <i class="bi bi-graph-up-arrow"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- DANH SÁCH LỚP HỌC -->
+
+<div class="class-list">
+
+{% for lop in classes %}
+
+<div class="class-card">
+
+    <div class="class-header">
+
+        <div>
+
+            <h4>{{ lop["ten_lop"] }}</h4>
+
+            {% if lop["trang_thai"] == 1 %}
+
+            <span class="badge bg-success">
+             Đang hoạt động
+            </span>
+
+            {% else %}
+
+<span class="badge bg-secondary">
+    Ngừng hoạt động
+</span>
+
+{% endif %}
+
+        </div>
+
+        <div class="class-actions">
+
+            <button
+                class="btn btn-outline-primary btn-sm edit-class"
+                data-class="{{ lop['ten_lop'] }}">
+
+                <i class="bi bi-pencil-fill"></i>
+
+            </button>
+
+            <button
+                class="btn btn-outline-danger btn-sm delete-class"
+                data-class="{{ lop['ten_lop'] }}">
+
+                <i class="bi bi-trash-fill"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="class-body">
+
+        <div class="class-item">
+
+            <span>Sĩ số</span>
+
+            <strong>{{ lop["si_so"] }}</strong>
+
+        </div>
+
+        <div class="class-item">
+
+            <span>Nam</span>
+
+            <strong>{{ lop["nam"] or 0 }}</strong>
+
+        </div>
+
+        <div class="class-item">
+
+            <span>Nữ</span>
+
+            <strong>{{ lop["nu"] or 0 }}</strong>
+
+        </div>
+
+    </div>
+
+    <div class="class-footer">
+
+        <i class="bi bi-person-fill text-primary"></i>
+
+        {{ lop["gvcn"] }}
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-light text-center">
+
+    Chưa có dữ liệu lớp học.
+
+</div>
+
+{% endfor %}
+
+</div>
+<!-- Phân trang -->
+
+<div class="d-flex justify-content-between align-items-center mt-4">
+
+    <div class="text-secondary">
+
+        Tổng cộng:
+        <strong>{{ total_classes }}</strong>
+        lớp học
+
+    </div>
+
+    <nav>
+
+        <ul class="pagination mb-0">
+
+            <li class="page-item disabled">
+
+                <a class="page-link" href="#">
+
+                    Trước
+
+                </a>
+
+            </li>
+
+            <li class="page-item active">
+
+                <a class="page-link" href="#">
+
+                    1
+
+                </a>
+
+            </li>
+
+            <li class="page-item disabled">
+
+                <a class="page-link" href="#">
+
+                    Sau
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+</div>
+
+
+
+<!-- AI GVCN -->
+
+<div class="card ai-card mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            <i class="bi bi-cpu-fill text-primary"></i>
+
+            AI GVCN đề xuất
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="alert alert-info">
+
+            <i class="bi bi-stars"></i>
+
+            AI sẽ phân tích sĩ số, chuyên cần, học lực, hạnh kiểm và đưa ra các khuyến nghị cho giáo viên chủ nhiệm.
+
+        </div>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+
+                <i class="bi bi-check-circle-fill text-success"></i>
+
+                Theo dõi sĩ số từng lớp.
+
+            </li>
+
+            <li class="list-group-item">
+
+                <i class="bi bi-check-circle-fill text-success"></i>
+
+                Phân tích xu hướng học lực của lớp.
+
+            </li>
+
+            <li class="list-group-item">
+
+                <i class="bi bi-check-circle-fill text-success"></i>
+
+                Phát hiện lớp có nguy cơ giảm kết quả học tập.
+
+            </li>
+
+            <li class="list-group-item">
+
+                <i class="bi bi-check-circle-fill text-success"></i>
+
+                Đề xuất biện pháp quản lý lớp phù hợp.
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+<!-- =========================
+     MODAL SỬA LỚP HỌC
+========================= -->
+
+<div class="modal fade" id="editClassModal" tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form id="editClassForm">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        <i class="bi bi-pencil-square text-primary"></i>
+
+                        Sửa lớp học
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <input
+                        type="hidden"
+                        id="old_class">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Tên lớp
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="class_name"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Giáo viên chủ nhiệm
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="teacher_name"
+                            class="form-control"
+                            value="Nguyễn Thanh Tuấn">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Trạng thái
+
+                        </label>
+
+                        <select
+                            id="class_status"
+                            class="form-select">
+
+                            <option value="1">
+
+                                Đang hoạt động
+
+                            </option>
+
+                            <option value="0">
+
+                                Ngừng hoạt động
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                        Hủy
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        <i class="bi bi-save-fill"></i>
+
+                        Lưu thay đổi
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+document.querySelectorAll(".edit-class").forEach(btn=>{
+
+    btn.addEventListener("click",function(){
+
+        document.getElementById("old_class").value=this.dataset.class;
+
+        document.getElementById("class_name").value=this.dataset.class;
+
+        const modal=new bootstrap.Modal(
+            document.getElementById("editClassModal")
+        );
+
+        modal.show();
+
+    });
+
+});
+
+document.getElementById("editClassForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const data=new FormData();
+
+    data.append(
+        "old_class",
+        document.getElementById("old_class").value
+    );
+
+    data.append(
+        "new_class",
+        document.getElementById("class_name").value
+    );
+
+    data.append(
+        "teacher_name",
+        document.getElementById("teacher_name").value
+    );
+
+    data.append(
+        "class_status",
+        document.getElementById("class_status").value
+    );
+
+    fetch("/classes/update",{
+
+        method:"POST",
+
+        body:data
+
+    })
+
+    .then(r=>r.json())
+
+    .then(res=>{
+
+        if(res.success){
+
+            location.reload();
+
+        }else{
+
+            alert(res.message);
+
+        }
+
+    });
+
+});
+document.getElementById("btnAddClass").addEventListener("click", function () {
+
+    document.getElementById("editClassForm").reset();
+
+    document.getElementById("old_class").value = "";
+
+    document.getElementById("class_name").value = "";
+
+    document.getElementById("teacher_name").value = "Nguyễn Thanh Tuấn";
+
+    document.getElementById("class_status").value = "1";
+
+    document.querySelector("#editClassModal .modal-title").innerHTML =
+        '<i class="bi bi-plus-circle-fill text-primary"></i> Thêm lớp học';
+
+    const modal = new bootstrap.Modal(
+        document.getElementById("editClassModal")
+    );
+
+    modal.show();
+
+});
+document.querySelectorAll(".delete-class").forEach(btn => {
+
+    btn.addEventListener("click", function () {
+
+        if (!confirm("Bạn có chắc muốn xóa lớp " + this.dataset.class + " ?")) {
+            return;
+        }
+
+        fetch("/classes/delete", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+
+            body: "class_name=" + encodeURIComponent(this.dataset.class)
+
+        })
+
+        .then(r => r.json())
+
+        .then(res => {
+
+            alert(res.message);
+
+            if (res.success) {
+
+                location.reload();
+
+            }
+
+        });
+
+    });
+
+});
+</script>
+{% endblock %}

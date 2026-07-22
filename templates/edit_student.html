@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+        <i class="bi bi-pencil-square text-primary"></i>
+        Sửa học sinh
+    </h2>
+
+    <form method="POST">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Họ và tên</label>
+                <input
+                    type="text"
+                    name="ho_ten"
+                    class="form-control"
+                    value="{{ student.ho_ten }}"
+                    required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Lớp</label>
+                <input
+                    type="text"
+                    name="lop"
+                    class="form-control"
+                    value="{{ student.lop }}"
+                    required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Giới tính</label>
+
+                <select name="gioi_tinh" class="form-select">
+
+                    <option {% if student.gioi_tinh=="Nam" %}selected{% endif %}>Nam</option>
+
+                    <option {% if student.gioi_tinh=="Nữ" %}selected{% endif %}>Nữ</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Ngày sinh</label>
+                <input
+                    type="date"
+                    name="ngay_sinh"
+                    class="form-control"
+                    value="{{ student.ngay_sinh }}">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Học lực</label>
+
+                <select name="hoc_luc" class="form-select">
+
+                    <option {% if student.hoc_luc=="Tốt" %}selected{% endif %}>Tốt</option>
+                    <option {% if student.hoc_luc=="Khá" %}selected{% endif %}>Khá</option>
+                    <option {% if student.hoc_luc=="Đạt" %}selected{% endif %}>Đạt</option>
+                    <option {% if student.hoc_luc=="Chưa đạt" %}selected{% endif %}>Chưa đạt</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Hạnh kiểm</label>
+
+                <select name="hanh_kiem" class="form-select">
+
+                    <option {% if student.hanh_kiem=="Tốt" %}selected{% endif %}>Tốt</option>
+                    <option {% if student.hanh_kiem=="Khá" %}selected{% endif %}>Khá</option>
+                    <option {% if student.hanh_kiem=="Đạt" %}selected{% endif %}>Đạt</option>
+                    <option {% if student.hanh_kiem=="Chưa đạt" %}selected{% endif %}>Chưa đạt</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-save-fill"></i>
+            Lưu thay đổi
+        </button>
+
+        <a href="/students" class="btn btn-secondary">
+            Quay lại
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

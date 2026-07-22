@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Upload
+uploads/
+
+# Temporary
+*.log
+*.tmp
+
+# Excel test files
+*.xlsx
+*.xls
+
+# Archive
+*.zip
+*.rar
+
+# Git
+.git/
