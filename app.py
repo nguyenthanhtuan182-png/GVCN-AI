@@ -18,7 +18,7 @@ from modules.database import (
 )
 
 from modules.upload_service import process_upload
-
+from modules.ai import AIAnalyzer
 
 app = Flask(__name__)
 
@@ -527,13 +527,41 @@ def clear_upload_history():
 @app.route("/ai")
 def ai():
 
+    analyzer = AIAnalyzer()
+
+    classes = analyzer.get_classes()
+
+    lop = request.args.get("lop")
+
+    if not lop:
+
+        if len(classes) > 0:
+
+            lop = classes[0]
+
+        else:
+
+            lop = ""
+
+    ai = analyzer.analyze(lop)
+
+    analyzer.close()
+
     return render_template(
+
         "ai.html",
+
+        ai=ai,
+
+        classes=classes,
+
+        selected_class=lop,
+
         page_title="AI phân tích",
+
         active_page="ai"
+
     )
-
-
 # ==========================
 # BẢN ĐỒ HỌC SINH
 # ==========================
