@@ -1490,9 +1490,9 @@ CARD - TABLE - FORM RESPONSIVE
 
 }
 
-table{
+.table{
 
-    min-width:900px;
+    min-width:700px;
 
 }
 
