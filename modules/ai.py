@@ -562,10 +562,16 @@ class AIAnalyzer:
     # XẾP HẠNG HỌC SINH
     # =====================================================
 
+    # =====================================================
+    # AI 06
+    # XẾP HẠNG HỌC SINH
+    # =====================================================
+
     def rank_students(self, students, academic):
 
         ranking = {}
 
+        # Khởi tạo dữ liệu học sinh
         for hs in students:
 
             ranking[hs["ma_dinh_danh"]] = {
@@ -578,10 +584,23 @@ class AIAnalyzer:
 
                 "so_mon": 0,
 
-                "diem_tb": 0
+                "diem_tb": 0,
+
+                "risk_score": 0,
+
+                "risk_level": "An toàn",
+
+                "mon_duoi_5": 0,
+
+                "mon_duoi_3": 0,
+
+                "hoc_tap_chua_dat": False,
+
+                "ren_luyen_chua_dat": False
 
             }
 
+        # Tổng hợp điểm từng học sinh
         for row in academic:
 
             ma = row["ma_dinh_danh"]
@@ -598,12 +617,31 @@ class AIAnalyzer:
 
                 continue
 
-            ranking[ma]["tong"] += diem
+            hs = ranking[ma]
 
-            ranking[ma]["so_mon"] += 1
+            hs["tong"] += diem
+
+            hs["so_mon"] += 1
+
+            if diem < 5:
+
+                hs["mon_duoi_5"] += 1
+
+            if diem < 3:
+
+                hs["mon_duoi_3"] += 1
+
+            if str(row.get("ket_qua_hoc_tap", "")).strip() == "Chưa đạt":
+
+                hs["hoc_tap_chua_dat"] = True
+
+            if str(row.get("ket_qua_ren_luyen", "")).strip() == "Chưa đạt":
+
+                hs["ren_luyen_chua_dat"] = True
 
         result = []
 
+                # Tính điểm trung bình
         for hs in ranking.values():
 
             if hs["so_mon"] > 0:
@@ -616,8 +654,17 @@ class AIAnalyzer:
 
                 )
 
-            result.append(hs)
+            # AI07 - Risk Engine
+            risk = self.calculate_risk_score(hs)
 
+            hs["risk_score"] = risk["risk_score"]
+
+            hs["risk_level"] = risk["risk_level"]
+
+            hs["risk_reasons"] = risk["reasons"]
+
+            result.append(hs)
+        # Xếp hạng theo điểm trung bình
         result.sort(
 
             key=lambda x: x["diem_tb"],
@@ -626,17 +673,116 @@ class AIAnalyzer:
 
         )
 
+        # Gán thứ hạng
         for i, hs in enumerate(result):
 
             hs["xep_hang"] = i + 1
 
-        return result
-
-
-    # =====================================================
+        return result    
+         # =====================================================
     # AI 07
-    # HỌC SINH CẦN QUAN TÂM
+    # RISK ENGINE - HỌC SINH CẦN QUAN TÂM
     # =====================================================
+
+    def calculate_risk_score(self, student):
+
+        risk = 0
+
+        reasons = []
+
+        # ----------------------------
+        # Học lực
+        # ----------------------------
+
+        if student["diem_tb"] < 5:
+
+            risk += 40
+
+            reasons.append("Điểm trung bình dưới 5")
+
+        elif student["diem_tb"] < 6.5:
+
+            risk += 20
+
+            reasons.append("Điểm trung bình dưới 6.5")
+
+        # ----------------------------
+        # Môn dưới 5
+        # ----------------------------
+
+        if student["mon_duoi_5"] > 0:
+
+            risk += student["mon_duoi_5"] * 5
+
+            reasons.append(
+                f"{student['mon_duoi_5']} môn dưới 5"
+            )
+
+        # ----------------------------
+        # Môn dưới 3
+        # ----------------------------
+
+        if student["mon_duoi_3"] > 0:
+
+            risk += student["mon_duoi_3"] * 10
+
+            reasons.append(
+                f"{student['mon_duoi_3']} môn dưới 3"
+            )
+
+        # ----------------------------
+        # Học tập
+        # ----------------------------
+
+        if student["hoc_tap_chua_dat"]:
+
+            risk += 20
+
+            reasons.append(
+                "Kết quả học tập: Chưa đạt"
+            )
+
+        # ----------------------------
+        # Rèn luyện
+        # ----------------------------
+
+        if student["ren_luyen_chua_dat"]:
+
+            risk += 15
+
+            reasons.append(
+                "Kết quả rèn luyện: Chưa đạt"
+            )
+
+        # ----------------------------
+        # Chuẩn hóa
+        # ----------------------------
+
+        if risk > 100:
+
+            risk = 100
+
+        if risk >= 60:
+
+            level = "Nguy cơ cao"
+
+        elif risk >= 30:
+
+            level = "Cần theo dõi"
+
+        else:
+
+            level = "An toàn"
+
+        return {
+
+            "risk_score": risk,
+
+            "risk_level": level,
+
+            "reasons": reasons
+
+        }
 
     def detect_students_need_attention(self, students, academic):
 
@@ -656,9 +802,13 @@ class AIAnalyzer:
 
                 "diem_tb": 0,
 
-                "muc_do": "Bình thường",
+                "mon_duoi_5": 0,
 
-                "khuyen_nghi": ""
+                "mon_duoi_3": 0,
+
+                "hoc_tap_chua_dat": False,
+
+                "ren_luyen_chua_dat": False
 
             }
 
@@ -678,9 +828,27 @@ class AIAnalyzer:
 
                 continue
 
-            info[ma]["tong_diem"] += diem
+            hs = info[ma]
 
-            info[ma]["so_mon"] += 1
+            hs["tong_diem"] += diem
+
+            hs["so_mon"] += 1
+
+            if diem < 5:
+
+                hs["mon_duoi_5"] += 1
+
+            if diem < 3:
+
+                hs["mon_duoi_3"] += 1
+
+            if str(row.get("ket_qua_hoc_tap", "")).strip() == "Chưa đạt":
+
+                hs["hoc_tap_chua_dat"] = True
+
+            if str(row.get("ket_qua_ren_luyen", "")).strip() == "Chưa đạt":
+
+                hs["ren_luyen_chua_dat"] = True
 
         result = []
 
@@ -700,25 +868,23 @@ class AIAnalyzer:
 
             )
 
-            if hs["diem_tb"] < 5:
+            ai = self.calculate_risk_score(hs)
 
-                hs["muc_do"] = "Rất cao"
+            hs["risk_score"] = ai["risk_score"]
 
-                hs["khuyen_nghi"] = "Phụ đạo ngay"
+            hs["muc_do"] = ai["risk_level"]
 
-                result.append(hs)
+            hs["nguyen_nhan"] = ", ".join(ai["reasons"])
 
-            elif hs["diem_tb"] < 6.5:
-
-                hs["muc_do"] = "Cao"
-
-                hs["khuyen_nghi"] = "Theo dõi"
+            if ai["risk_score"] >= 30:
 
                 result.append(hs)
 
         result.sort(
 
-            key=lambda x: x["diem_tb"]
+            key=lambda x: x["risk_score"],
+
+            reverse=True
 
         )
 

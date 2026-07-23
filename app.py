@@ -11,7 +11,8 @@ from flask import (
 )
 
 import os
-
+import openpyxl
+from io import BytesIO
 from modules.database import (
     get_connection,
     init_database
@@ -603,71 +604,247 @@ def settings():
 
 
 # ==========================
-# TẢI FILE MẪU
+# TẢI FILE MẪU GVCN
 # ==========================
 
-@app.route("/download-template/students")
-def download_students_template():
+# ==========================
+# TẢI FILE MẪU GVCN
+# ==========================
 
-    return send_file(
-        "static/templates_excel/students_template.xlsx",
-        as_attachment=True
-    )
+@app.route("/download-template/gvcn")
+def download_gvcn_template():
 
+    conn = get_connection()
 
-@app.route("/download-template/<data_type>")
-def download_template(data_type):
+    students = conn.execute("""
 
-    files = {
+        SELECT
+            ma_dinh_danh,
+            ho_ten,
+            lop
 
-        "students":
-            "students_template.xlsx",
+        FROM students
 
-        "academic":
-            "academic_template.xlsx",
+        ORDER BY
+            lop,
+            ho_ten
 
-        "attendance":
-            "attendance_template.xlsx",
+    """).fetchall()
 
-        "conduct":
-            "conduct_template.xlsx",
+    conn.close()
 
-        "parents":
-            "parents_template.xlsx",
+    wb = openpyxl.Workbook()
 
-        "survey":
-            "survey_template.xlsx",
+    ws = wb.active
 
-        "gvcn":
-            "gvcn_template.xlsx"
+    ws.title = "Thông tin GVCN"
+
+    # -------------------------------------------------
+    # Chưa có dữ liệu học sinh
+    # -------------------------------------------------
+
+    if len(students) == 0:
+
+        ws["A1"] = (
+            "⚠ Chưa có dữ liệu học sinh. "
+            "Vui lòng upload danh sách học sinh từ CSDL trước, "
+            "sau đó tải lại mẫu GVCN."
+        )
+
+        header_row = 3
+
+    else:
+
+        header_row = 1
+
+    headers = [
+
+        "Mã định danh",
+
+        "Họ tên",
+
+        "Lớp",
+
+        "Ghi chú GVCN",
+
+        "Hoàn cảnh đặc biệt",
+
+        "Tình hình gia đình",
+
+        "Đã liên hệ PH",
+
+        "Nội dung trao đổi PH",
+
+        "Ghi chú khác"
+
+    ]
+
+    for col, title in enumerate(headers, start=1):
+
+        cell = ws.cell(row=header_row, column=col)
+
+        cell.value = title
+
+        cell.font = openpyxl.styles.Font(bold=True)
+
+    # -------------------------------------------------
+    # Có dữ liệu học sinh
+    # -------------------------------------------------
+
+    if len(students) > 0:
+
+        row = header_row + 1
+
+        for hs in students:
+
+            ws.cell(row=row, column=1).value = hs["ma_dinh_danh"]
+
+            ws.cell(row=row, column=2).value = hs["ho_ten"]
+
+            ws.cell(row=row, column=3).value = hs["lop"]
+
+            row += 1
+
+    # -------------------------------------------------
+    # Định dạng cột
+    # -------------------------------------------------
+
+    widths = {
+
+        "A": 18,
+        "B": 30,
+        "C": 12,
+        "D": 35,
+        "E": 30,
+        "F": 30,
+        "G": 18,
+        "H": 40,
+        "I": 35
 
     }
 
-    filename = files.get(
-        data_type
+    for col, width in widths.items():
+
+        ws.column_dimensions[col].width = width
+
+    output = BytesIO()
+
+    wb.save(output)
+
+    output.seek(0)
+
+    return send_file(
+
+        output,
+
+        as_attachment=True,
+
+        download_name="Mau_GVCN.xlsx",
+
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
     )
 
-    if not filename:
+    # -------------------------------------------------
+    # Chưa có dữ liệu học sinh
+    # -------------------------------------------------
 
-        return (
-            "Không tìm thấy file mẫu",
-            404
+    if len(students) == 0:
+
+        ws["A1"] = (
+            "⚠ Chưa có dữ liệu học sinh. "
+            "Vui lòng upload danh sách học sinh từ CSDL trước, "
+            "sau đó tải lại mẫu GVCN."
         )
 
-    return send_from_directory(
+        header_row = 3
 
-        os.path.join(
-            app.root_path,
-            "static",
-            "templates_excel"
-        ),
+    else:
 
-        filename,
+        header_row = 1
 
-        as_attachment=True
+    headers = [
+
+        "Mã định danh",
+
+        "Họ tên",
+
+        "Ghi chú GVCN",
+
+        "Hoàn cảnh đặc biệt",
+
+        "Tình hình gia đình",
+
+        "Đã liên hệ PH",
+
+        "Nội dung trao đổi PH",
+
+        "Ghi chú khác"
+
+    ]
+
+    for col, title in enumerate(headers, start=1):
+
+        cell = ws.cell(row=header_row, column=col)
+
+        cell.value = title
+
+        cell.font = openpyxl.styles.Font(bold=True)
+
+    # -------------------------------------------------
+    # Có dữ liệu học sinh
+    # -------------------------------------------------
+
+    if len(students) > 0:
+
+        row = header_row + 1
+
+        for hs in students:
+
+            ws.cell(row=row, column=1).value = hs["ma_dinh_danh"]
+
+            ws.cell(row=row, column=2).value = hs["ho_ten"]
+
+            row += 1
+
+    # -------------------------------------------------
+    # Định dạng cột
+    # -------------------------------------------------
+
+    widths = {
+
+        "A": 18,
+        "B": 30,
+        "C": 35,
+        "D": 30,
+        "E": 30,
+        "F": 18,
+        "G": 40,
+        "H": 35
+
+    }
+
+    for col, width in widths.items():
+
+        ws.column_dimensions[col].width = width
+
+    output = BytesIO()
+
+    wb.save(output)
+
+    output.seek(0)
+
+    return send_file(
+
+        output,
+
+        as_attachment=True,
+
+        download_name="Mau_GVCN.xlsx",
+
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
     )
-
 
 # ==========================
 # API THỐNG KÊ HỌC SINH
