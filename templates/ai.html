@@ -501,7 +501,7 @@
 
                 <h5 class="mb-0">
 
-                    🥇 Top 10 học sinh
+                    🥇 Top học sinh của lớp
 
                 </h5>
 
@@ -511,7 +511,7 @@
 
                 <div class="table-responsive">
 
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
 
                         <thead>
 
@@ -522,6 +522,10 @@
                                 <th>Họ tên</th>
 
                                 <th>Điểm TB</th>
+
+                                <th>Điểm rủi ro AI</th>
+
+                                <th>Mức độ</th>
 
                             </tr>
 
@@ -539,6 +543,38 @@
 
                                 <td>{{ hs.diem_tb }}</td>
 
+                                <td>{{ hs.risk_score }}</td>
+
+                                <td>
+
+                                    {% if hs.risk_level == "Nguy cơ cao" %}
+
+                                        <span class="badge bg-danger">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% elif hs.risk_level == "Cần theo dõi" %}
+
+                                        <span class="badge bg-warning text-dark">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-success">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
                             </tr>
 
                             {% endfor %}
@@ -554,9 +590,6 @@
         </div>
 
     </div>
-
-
-
     <div class="col-lg-6">
 
         <div class="card shadow-sm">
@@ -575,7 +608,7 @@
 
                 <div class="table-responsive">
 
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
 
                         <thead>
 
@@ -586,6 +619,10 @@
                                 <th>Họ tên</th>
 
                                 <th>Điểm TB</th>
+
+                                <th>Điểm rủi ro AI</th>
+
+                                <th>Mức độ</th>
 
                             </tr>
 
@@ -603,6 +640,38 @@
 
                                 <td>{{ hs.diem_tb }}</td>
 
+                                <td>{{ hs.risk_score }}</td>
+
+                                <td>
+
+                                    {% if hs.risk_level == "Nguy cơ cao" %}
+
+                                        <span class="badge bg-danger">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% elif hs.risk_level == "Cần theo dõi" %}
+
+                                        <span class="badge bg-warning text-dark">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-success">
+
+                                            {{ hs.risk_level }}
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
                             </tr>
 
                             {% endfor %}
@@ -618,6 +687,8 @@
         </div>
 
     </div>
+
+</div>
 
 </div>
 

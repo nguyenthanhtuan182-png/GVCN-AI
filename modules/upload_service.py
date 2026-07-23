@@ -159,6 +159,7 @@ def process_upload(file):
             }
 
         headers = get_headers(file)
+        print(headers)
 
         template = detect_template(headers)
 
@@ -186,8 +187,9 @@ def process_upload(file):
 
         result = handler(file)
 
-        return normalize_result(result)
+        print(result)
 
+        return normalize_result(result)
     except ValueError as e:
 
         return {

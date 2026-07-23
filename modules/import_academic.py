@@ -103,10 +103,7 @@ def save_subject(
     if diem == "":
         return False
 
-    try:
-        diem = float(diem)
-    except:
-        diem = str(diem)
+    diem = str(diem).strip()
 
     row = academic_exists(
         conn,
@@ -116,13 +113,29 @@ def save_subject(
         mon_hoc
     )
 
+    # ===========================
+    # ĐÃ CÓ DỮ LIỆU
+    # ===========================
     if row:
 
-        if (
-            float(row["diem_tb"]) == diem
-            and row["ket_qua_hoc_tap"] == ket_qua_hoc_tap
-            and row["ket_qua_ren_luyen"] == ket_qua_ren_luyen
-        ):
+        old_score = "" if row["diem_tb"] is None else str(row["diem_tb"]).strip()
+
+        try:
+            same_score = float(old_score) == float(diem)
+        except:
+            same_score = old_score == diem
+
+        same_ht = (
+            (row["ket_qua_hoc_tap"] or "").strip()
+            == ket_qua_hoc_tap.strip()
+        )
+
+        same_rl = (
+            (row["ket_qua_ren_luyen"] or "").strip()
+            == ket_qua_ren_luyen.strip()
+        )
+
+        if same_score and same_ht and same_rl:
             return "duplicate"
 
         conn.execute(
@@ -145,6 +158,9 @@ def save_subject(
 
         return "updated"
 
+    # ===========================
+    # CHƯA CÓ DỮ LIỆU
+    # ===========================
     conn.execute(
         """
         INSERT INTO academic
@@ -294,6 +310,7 @@ def import_academic(file):
             ).fetchone()
 
             print("Trong CSDL:", student2)
+            print("Ngày sinh Excel :", repr(ngay_sinh))
             print("=" * 60)
 
             invalid += 1
@@ -414,6 +431,8 @@ def safe_import_academic(file):
         }
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
 
         return {
 
