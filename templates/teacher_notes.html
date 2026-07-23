@@ -11,7 +11,61 @@
         </h4>
 
     </div>
+<div class="card-body border-bottom">
 
+    <form method="get" class="row g-3 align-items-end">
+
+        <div class="col-md-4">
+
+            <label class="form-label fw-bold">
+
+                Lớp học
+
+            </label>
+
+            <select
+                name="lop"
+                class="form-select">
+
+                <option value="">
+
+                    Tất cả lớp
+
+                </option>
+
+                {% for c in classes %}
+
+                <option
+                    value="{{ c.lop }}"
+                    {% if selected_class == c.lop %}selected{% endif %}>
+
+                    {{ c.lop }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100">
+
+                <i class="bi bi-search"></i>
+
+                Xem
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
     <div class="card-body table-responsive">
 
         <table class="table table-bordered table-hover align-middle">

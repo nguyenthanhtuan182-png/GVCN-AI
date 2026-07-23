@@ -62,20 +62,67 @@ def students():
 
     conn = get_connection()
 
-    students = conn.execute("""
-        SELECT *
+    # Danh sách lớp
+    classes = conn.execute("""
+
+        SELECT DISTINCT lop
+
         FROM students
+
+        WHERE lop IS NOT NULL
+          AND lop <> ''
+
+        ORDER BY lop
+
     """).fetchall()
+
+    # Lớp được chọn
+    lop = request.args.get("lop", "")
+
+    if lop == "":
+
+        students = conn.execute("""
+
+            SELECT *
+
+            FROM students
+
+            ORDER BY lop, ho_ten
+
+        """).fetchall()
+
+    else:
+
+        students = conn.execute("""
+
+            SELECT *
+
+            FROM students
+
+            WHERE lop = ?
+
+            ORDER BY ho_ten
+
+        """, (lop,)).fetchall()
 
     conn.close()
 
     students = sort_students(students)
 
     return render_template(
+
         "students.html",
+
         students=students,
+
+        classes=classes,
+
+        selected_class=lop,
+
         page_title="Quản lý học sinh",
+
         active_page="students"
+
     )
 # ==========================
 # QUẢN LÝ KẾT QUẢ
@@ -85,19 +132,70 @@ def academic():
 
     conn = get_connection()
 
-    rows = conn.execute("""
-        SELECT
-            s.ma_dinh_danh,
-            s.ho_ten,
-            s.lop,
-            a.mon_hoc,
-            a.diem_tb,
-            a.ket_qua_hoc_tap,
-            a.ket_qua_ren_luyen
-        FROM students s
-        LEFT JOIN academic a
-            ON s.ma_dinh_danh = a.ma_dinh_danh
+    classes = conn.execute("""
+
+        SELECT DISTINCT lop
+
+        FROM students
+
+        WHERE lop IS NOT NULL
+          AND lop <> ''
+
+        ORDER BY lop
+
     """).fetchall()
+
+    lop = request.args.get("lop", "")
+
+    if lop == "":
+
+        rows = conn.execute("""
+
+            SELECT
+
+                s.ma_dinh_danh,
+                s.ho_ten,
+                s.lop,
+                a.mon_hoc,
+                a.diem_tb,
+                a.ket_qua_hoc_tap,
+                a.ket_qua_ren_luyen
+
+            FROM students s
+
+            LEFT JOIN academic a
+
+            ON s.ma_dinh_danh = a.ma_dinh_danh
+
+            ORDER BY s.lop, s.ho_ten
+
+        """).fetchall()
+
+    else:
+
+        rows = conn.execute("""
+
+            SELECT
+
+                s.ma_dinh_danh,
+                s.ho_ten,
+                s.lop,
+                a.mon_hoc,
+                a.diem_tb,
+                a.ket_qua_hoc_tap,
+                a.ket_qua_ren_luyen
+
+            FROM students s
+
+            LEFT JOIN academic a
+
+            ON s.ma_dinh_danh = a.ma_dinh_danh
+
+            WHERE s.lop = ?
+
+            ORDER BY s.ho_ten
+
+        """, (lop,)).fetchall()
 
     conn.close()
 
@@ -138,16 +236,24 @@ def academic():
             students[ma][row["mon_hoc"]] = row["diem_tb"]
 
             students[ma]["ket_qua_hoc_tap"] = row["ket_qua_hoc_tap"] or ""
-
             students[ma]["ket_qua_ren_luyen"] = row["ket_qua_ren_luyen"] or ""
 
     academic = sort_students(list(students.values()))
 
     return render_template(
+
         "academic.html",
+
         academic=academic,
+
+        classes=classes,
+
+        selected_class=lop,
+
         page_title="Kết quả học tập",
+
         active_page="academic"
+
     )
 # ==========================
 
@@ -603,9 +709,6 @@ def settings():
     )
 
 
-# ==========================
-# TẢI FILE MẪU GVCN
-# ==========================
 
 # ==========================
 # TẢI FILE MẪU GVCN
@@ -981,41 +1084,96 @@ def teacher_notes():
 
     conn = get_connection()
 
-    notes = conn.execute("""
+    classes = conn.execute("""
 
-        SELECT
+        SELECT DISTINCT lop
 
-            s.ma_dinh_danh,
+        FROM students
 
-            s.ho_ten,
+        WHERE lop IS NOT NULL
+          AND lop <> ''
 
-            s.lop,
-
-            t.ghi_chu_gvcn,
-
-            t.hoan_canh_dac_biet,
-
-            t.tinh_hinh_gia_dinh,
-
-            t.da_lien_he_ph,
-
-            t.noi_dung_trao_doi_ph,
-
-            t.ghi_chu_khac
-
-        FROM students s
-
-        LEFT JOIN teacher_notes t
-
-        ON s.ma_dinh_danh = t.ma_dinh_danh
-
-        ORDER BY
-
-            s.lop,
-
-            s.ho_ten
+        ORDER BY lop
 
     """).fetchall()
+
+    lop = request.args.get("lop", "")
+
+    if lop == "":
+
+        notes = conn.execute("""
+
+            SELECT
+
+                s.ma_dinh_danh,
+
+                s.ho_ten,
+
+                s.lop,
+
+                t.ghi_chu_gvcn,
+
+                t.hoan_canh_dac_biet,
+
+                t.tinh_hinh_gia_dinh,
+
+                t.da_lien_he_ph,
+
+                t.noi_dung_trao_doi_ph,
+
+                t.ghi_chu_khac
+
+            FROM students s
+
+            LEFT JOIN teacher_notes t
+
+            ON s.ma_dinh_danh = t.ma_dinh_danh
+
+            ORDER BY
+
+                s.lop,
+
+                s.ho_ten
+
+        """).fetchall()
+
+    else:
+
+        notes = conn.execute("""
+
+            SELECT
+
+                s.ma_dinh_danh,
+
+                s.ho_ten,
+
+                s.lop,
+
+                t.ghi_chu_gvcn,
+
+                t.hoan_canh_dac_biet,
+
+                t.tinh_hinh_gia_dinh,
+
+                t.da_lien_he_ph,
+
+                t.noi_dung_trao_doi_ph,
+
+                t.ghi_chu_khac
+
+            FROM students s
+
+            LEFT JOIN teacher_notes t
+
+            ON s.ma_dinh_danh = t.ma_dinh_danh
+
+            WHERE s.lop = ?
+
+            ORDER BY
+
+                s.ho_ten
+
+        """, (lop,)).fetchall()
 
     conn.close()
 
@@ -1026,6 +1184,10 @@ def teacher_notes():
         "teacher_notes.html",
 
         notes=notes,
+
+        classes=classes,
+
+        selected_class=lop,
 
         page_title="Thông tin GVCN",
 
