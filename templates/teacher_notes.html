@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-primary text-white">
+
+        <h4 class="mb-0">
+            📋 Thông tin GVCN
+        </h4>
+
+    </div>
+
+    <div class="card-body table-responsive">
+
+        <table class="table table-bordered table-hover align-middle">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>STT</th>
+
+                    <th>Mã định danh</th>
+
+                    <th>Họ tên</th>
+
+                    <th>Lớp</th>
+
+                    <th>Ghi chú GVCN</th>
+
+                    <th>Hoàn cảnh đặc biệt</th>
+
+                    <th>Tình hình gia đình</th>
+
+                    <th>Đã liên hệ PH</th>
+
+                    <th>Nội dung trao đổi PH</th>
+
+                    <th>Ghi chú khác</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for hs in notes %}
+
+                <tr>
+
+                    <td>{{ loop.index }}</td>
+
+                    <td>{{ hs.ma_dinh_danh }}</td>
+
+                    <td>{{ hs.ho_ten }}</td>
+
+                    <td>{{ hs.lop }}</td>
+
+                    <td>{{ hs.ghi_chu_gvcn or "" }}</td>
+
+                    <td>{{ hs.hoan_canh_dac_biet or "" }}</td>
+
+                    <td>{{ hs.tinh_hinh_gia_dinh or "" }}</td>
+
+                    <td>{{ hs.da_lien_he_ph or "" }}</td>
+
+                    <td>{{ hs.noi_dung_trao_doi_ph or "" }}</td>
+
+                    <td>{{ hs.ghi_chu_khac or "" }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

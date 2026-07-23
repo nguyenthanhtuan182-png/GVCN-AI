@@ -972,7 +972,66 @@ def api_gender():
 
     return result
 
+# ==========================
+# THÔNG TIN GVCN
+# ==========================
 
+@app.route("/teacher-notes")
+def teacher_notes():
+
+    conn = get_connection()
+
+    notes = conn.execute("""
+
+        SELECT
+
+            s.ma_dinh_danh,
+
+            s.ho_ten,
+
+            s.lop,
+
+            t.ghi_chu_gvcn,
+
+            t.hoan_canh_dac_biet,
+
+            t.tinh_hinh_gia_dinh,
+
+            t.da_lien_he_ph,
+
+            t.noi_dung_trao_doi_ph,
+
+            t.ghi_chu_khac
+
+        FROM students s
+
+        LEFT JOIN teacher_notes t
+
+        ON s.ma_dinh_danh = t.ma_dinh_danh
+
+        ORDER BY
+
+            s.lop,
+
+            s.ho_ten
+
+    """).fetchall()
+
+    conn.close()
+
+    notes = sort_students(notes)
+
+    return render_template(
+
+        "teacher_notes.html",
+
+        notes=notes,
+
+        page_title="Thông tin GVCN",
+
+        active_page="teacher_notes"
+
+    )
 # ==========================
 # CHẠY CHƯƠNG TRÌNH
 # ==========================

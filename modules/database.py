@@ -108,6 +108,39 @@ def init_database():
 
     """)
     # ==========================
+# THÔNG TIN GVCN
+# ==========================
+
+    cur.execute("""
+
+    CREATE TABLE IF NOT EXISTS teacher_notes(
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        ma_dinh_danh TEXT UNIQUE,
+
+        ghi_chu_gvcn TEXT,
+
+        hoan_canh_dac_biet TEXT,
+
+        tinh_hinh_gia_dinh TEXT,
+
+        da_lien_he_ph TEXT,
+
+        noi_dung_trao_doi_ph TEXT,
+
+        ghi_chu_khac TEXT,
+
+        ngay_cap_nhat TEXT,
+
+        FOREIGN KEY(ma_dinh_danh)
+
+        REFERENCES students(ma_dinh_danh)
+
+    )
+
+    """)
+    # ==========================
     # ATTENDANCE
     # ==========================
 

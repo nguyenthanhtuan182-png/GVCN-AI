@@ -2,7 +2,12 @@ import pandas as pd
 
 from modules.import_students import safe_import_students
 from modules.import_academic import safe_import_academic
+from modules.import_gvcn import safe_import_gvcn
 
+
+# =====================================================
+# CẤU HÌNH
+# =====================================================
 
 ALLOWED_EXTENSIONS = {
     "xlsx",
@@ -10,96 +15,204 @@ ALLOWED_EXTENSIONS = {
 }
 
 
-REQUIRED_HEADERS = {
-
-    "students": [
-        "Mã định danh",
-        "Họ tên"
-    ],
-
-    "academic": [
-        "Họ Tên",
-        "Ngày sinh",
-        "Kết quả học tập"
-    ],
-
-    "gvcn": [
-        "Họ và tên",
-        "Ngày sinh"
-    ]
-
-}
-
+# =====================================================
+# KIỂM TRA ĐUÔI FILE
+# =====================================================
 
 def allowed_file(filename):
 
     return (
+
         "." in filename
-        and filename.rsplit(".", 1)[1].lower()
+
+        and
+
+        filename.rsplit(".", 1)[1].lower()
+
         in ALLOWED_EXTENSIONS
+
     )
 
 
-def get_headers(file):
+# =====================================================
+# ĐỌC HEADER
+# =====================================================
+
+def get_headers(file, header_row):
 
     file.seek(0)
+
+    df = pd.read_excel(
+
+        file,
+
+        header=header_row,
+
+        nrows=0
+
+    )
+
+    headers = [
+
+        str(col).strip()
+
+        for col in df.columns
+
+    ]
+
+    file.seek(0)
+
+    return headers
+
+
+# =====================================================
+# NHẬN DẠNG FILE
+# =====================================================
+
+def detect_template(file):
+
+    # ------------------------------------
+    # FILE CSDL
+    # ------------------------------------
 
     try:
 
-        df = pd.read_excel(
-            file,
-            header=5,
-            nrows=0
+        headers = set(
+
+            get_headers(
+
+                file,
+
+                5
+
+            )
+
         )
+
+        # -------------------------------
+        # DANH SÁCH HỌC SINH
+        # -------------------------------
+
+        if (
+
+            "Mã định danh" in headers
+
+            and
+
+            "Giới tính" in headers
+
+            and
+
+            "Dân tộc" in headers
+
+            and
+
+            "Trạng thái" in headers
+
+        ):
+
+            return "students"
+
+        # -------------------------------
+        # KẾT QUẢ HỌC TẬP
+        # -------------------------------
+
+        if (
+
+            "Họ Tên" in headers
+
+            and
+
+            "Ngày sinh" in headers
+
+            and
+
+            "Kết quả học tập" in headers
+
+            and
+
+            "Kết quả rèn luyện" in headers
+
+        ):
+
+            return "academic"
 
     except Exception:
 
-        file.seek(0)
+        pass
 
-        df = pd.read_excel(
-            file,
-            nrows=0
+    # ------------------------------------
+    # FILE GVCN
+    # ------------------------------------
+
+    try:
+
+        headers = set(
+
+            get_headers(
+
+                file,
+
+                0
+
+            )
+
         )
 
-    file.seek(0)
+        if (
 
-    return [
-        str(col).strip()
-        for col in df.columns
-    ]
+            "Mã định danh" in headers
 
+            and
 
-def detect_template(headers):
+            "Họ tên" in headers
 
-    headers = set(headers)
+            and
 
-    if set(REQUIRED_HEADERS["students"]).issubset(headers):
-        return "students"
+            "Lớp" in headers
 
-    if set(REQUIRED_HEADERS["academic"]).issubset(headers):
-        return "academic"
+            and
 
-    if set(REQUIRED_HEADERS["gvcn"]).issubset(headers):
-        return "gvcn"
+            "Ghi chú GVCN" in headers
+
+        ):
+
+            return "gvcn"
+
+    except Exception:
+
+        pass
 
     return None
 
+
+# =====================================================
+# DANH SÁCH HÀM IMPORT
+# =====================================================
 
 def get_handlers():
 
     return {
 
         "students":
+
             safe_import_students,
 
         "academic":
+
             safe_import_academic,
 
-        # Sau này bổ sung
-        # "gvcn":
-        #     safe_import_gvcn
+        "gvcn":
+
+            safe_import_gvcn
 
     }
+
+
+# =====================================================
+# KẾT QUẢ MẶC ĐỊNH
+# =====================================================
+
 def empty_result(message=""):
 
     return {
@@ -121,7 +234,9 @@ def empty_result(message=""):
         "error": None
 
     }
-
+# =====================================================
+# CHUẨN HÓA KẾT QUẢ
+# =====================================================
 
 def normalize_result(result):
 
@@ -130,46 +245,77 @@ def normalize_result(result):
     default.update(result)
 
     return default
+
+
+# =====================================================
+# XỬ LÝ UPLOAD
+# =====================================================
+
 def process_upload(file):
 
     try:
 
+        # --------------------------------
+        # Kiểm tra file
+        # --------------------------------
+
         if not file:
 
             return {
+
                 **empty_result(),
+
                 "status": "danger",
+
                 "message": "Chưa chọn tệp Excel."
+
             }
 
         if file.filename == "":
 
             return {
+
                 **empty_result(),
+
                 "status": "danger",
+
                 "message": "Chưa chọn tệp Excel."
+
             }
 
         if not allowed_file(file.filename):
 
             return {
+
                 **empty_result(),
+
                 "status": "danger",
+
                 "message": "Chỉ hỗ trợ tệp Excel (*.xlsx, *.xls)."
+
             }
 
-        headers = get_headers(file)
-        print(headers)
+        # --------------------------------
+        # Nhận dạng loại file
+        # --------------------------------
 
-        template = detect_template(headers)
+        template = detect_template(file)
 
         if template is None:
 
             return {
+
                 **empty_result(),
+
                 "status": "danger",
+
                 "message": "Không nhận dạng được mẫu Excel."
+
             }
+
+        # --------------------------------
+        # Lấy hàm xử lý
+        # --------------------------------
 
         handlers = get_handlers()
 
@@ -178,30 +324,53 @@ def process_upload(file):
         if handler is None:
 
             return {
+
                 **empty_result(),
+
                 "status": "danger",
-                "message": "Chức năng đang được phát triển."
+
+                "message": "Chưa hỗ trợ loại dữ liệu này."
+
             }
+
+        # --------------------------------
+        # Đưa con trỏ file về đầu
+        # --------------------------------
 
         file.seek(0)
 
+        # --------------------------------
+        # Thực hiện import
+        # --------------------------------
+
         result = handler(file)
 
-        print(result)
+        # --------------------------------
+        # Chuẩn hóa kết quả
+        # --------------------------------
 
         return normalize_result(result)
+
     except ValueError as e:
 
         return {
+
             **empty_result(),
+
             "status": "danger",
+
             "message": str(e)
+
         }
 
     except Exception as e:
 
         return {
+
             **empty_result(),
+
             "status": "danger",
+
             "message": f"Lỗi xử lý dữ liệu: {str(e)}"
+
         }
