@@ -1609,3 +1609,14 @@ TOPBAR RESPONSIVE
     }
 
 }
+/* ==========================================
+   Dashboard
+========================================== */
+
+.dashboard-content p{
+
+    text-align: justify;
+
+    line-height: 1.8;
+
+}
