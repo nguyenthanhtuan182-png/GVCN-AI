@@ -1596,3 +1596,16 @@ TOPBAR RESPONSIVE
 }
 
 }
+/* Dashboard Mobile */
+
+@media (max-width:768px){
+
+    .container-fluid{
+
+        padding-left:8px !important;
+
+        padding-right:8px !important;
+
+    }
+
+}
